@@ -23,7 +23,7 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
 
     let monthPercent = percent / (12 * 100);
 
-    let monthPayment = totalPrincipal * (monthPercent + monthPercent / (((1 + monthPercent) ^ month) - 1));
+    let monthPayment = totalPrincipal * (monthPercent + monthPercent / (Math.pow((1 + monthPercent), month) - 1));
 
     let totalAmount = (monthPayment * month).toFixed(2);
 
