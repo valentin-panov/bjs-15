@@ -2,7 +2,6 @@
 
 function getResult(a,b,c){
     // код для задачи №1 писать здесь
-    debugger;
     let x = [];
     // discriminant
     let d = Math.pow(b, 2) - (4 * a * c);
