@@ -17,7 +17,7 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
     // тело кредита
     let totalPrincipal = amount - contribution;
 
-    // количество выплачиваемых месяцев вводится в функцию параметром date, если верить легенде дз
+    // obtain 
     let month = date.getMonth() - (new Date()).getMonth() + (12 * (date.getFullYear() - (new Date()).getFullYear()));
 
     let monthPercent = percent / (12 * 100);
@@ -27,7 +27,7 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
     let totalAmount = (monthPayment * month).toFixed(2);
 
     console.log(totalAmount);
-    return totalAmount;
+    return Number(totalAmount);
 }
 
 function getGreeting(name) {
