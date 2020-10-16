@@ -64,12 +64,10 @@ function getAverageScore(data) {
 
 // перебираем предметы и перезаписывем новый объект средними отметками
   for (let key in cloneData) {
-    let averageMark = 0;
-    averageMark = getAverageMark(cloneData[key]);
-    cloneData[key].length = 1;
-    cloneData[key] = averageMark;
-    sumMarks += averageMark;
-    countMarks++;
+    cloneData[key] = getAverageMark(cloneData[key]);
+
+    sumMarks += cloneData[key]; // собираем сумму средних отметок
+    countMarks++; // считаем количество отметок
   }
 
   sumMarks = sumMarks / countMarks; // средняя оценка по всем предметам
