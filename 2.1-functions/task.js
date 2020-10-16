@@ -1,4 +1,6 @@
+"use strict";
 
+// TASK 1
 
 function getSolutions(a, b, c){
    // discriminant
@@ -37,18 +39,45 @@ function showSolutionsMessage(a, b, c) {
 
 }
 
-function getAverageScore(data) {
-    if (data.length === 0) return 0;
-
-    let sum = 0; // сумма оценок
-
-    for (let rating of data) {
-        sum += rating;
-    }
-    return sum / data.length;
-
-}
+// TASK 2
 
 function getAverageMark(marks) {
+  if (marks.length === 0) return 0;
 
+  let sum = 0;
+
+  for (let i = 0; i < marks.length; i++) {
+    sum += marks[i];
+  }
+
+  return sum / marks.length;
 }
+
+
+function getAverageScore(data) {
+  if (!data) return 0;
+
+  const cloneData = { ...data }; // клонируем входной объект, чтобы не повредить исходные данные
+
+  let sumMarks = 0; //сумма всех оценок
+  let countMarks = 0; // число предметов
+
+// перебираем предметы и перезаписывем новый объект средними отметками
+  for (let key in cloneData) {
+    let averageMark = 0;
+    averageMark = getAverageMark(cloneData[key]);
+    cloneData[key].length = 1;
+    cloneData[key] = averageMark;
+    sumMarks += averageMark;
+    countMarks++;
+  }
+
+  sumMarks = sumMarks / countMarks; // средняя оценка по всем предметам
+  if (countMarks == 0) sumMarks = 0; // если не заданы предметы, среднняя 0
+
+  cloneData.average = sumMarks;
+
+  return cloneData;
+}
+
+// TASK 3
