@@ -36,3 +36,19 @@ function showSolutionsMessage(a, b, c) {
    }
 
 }
+
+function getAverageScore(data) {
+    if (data.length === 0) return 0;
+
+    let sum = 0; // сумма оценок
+
+    for (let rating of data) {
+        sum += rating;
+    }
+    return sum / data.length;
+
+}
+
+function getAverageMark(marks) {
+
+}

@@ -1,6 +1,6 @@
+"use strict";
+
 function calculateTotalMortgage(percent, contribution, amount, date) {
-    // код для задачи №1 писать здесь
-    "use strict";
     debugger;
     let errorMsg;
 
@@ -31,7 +31,6 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
 }
 
 function getGreeting(name = 'Аноним') {
-    // код для задачи №2 писать здесь
-    if (name == null || name =='') name = "Аноним";
+    if (!name || name === 'null' || name === '' || name === 'undefined') name = "Аноним";
     return `Привет, мир! Меня зовут ${name}`;
 }
