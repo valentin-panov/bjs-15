@@ -5,7 +5,10 @@ String.prototype.isPalindrome = function() { // не уверен, нужно л
    return false;
 }
 
+// TASK 2
+
 function getAverageMark(marks) {
+   'use strict';
    if (!marks) return 0;
 
    let sumMarks = 0;
@@ -20,7 +23,10 @@ function getAverageMark(marks) {
    return Math.round(sumMarks / countMarks);
 }
 
+// TASK 3
+
 function checkBirthday(birthday) {
-    // код для задачи №3 писать здесь
-    // return verdict
+   'use strict';
+   if (Math.floor((Number(new Date()) - Number(new Date(birthday))) / (1000 * 31536000)) > 18) return true;
+   return false;
 }
