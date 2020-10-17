@@ -79,3 +79,13 @@ function getAverageScore(data) {
 }
 
 // TASK 3
+
+function getPersonData(secretData) { 
+  return { firstName: getDecodedValue(secretData.aaa), lastName: getDecodedValue(secretData.bbb) };
+}
+
+function getDecodedValue(secret) {
+  if (secret == "1") return "Эмильо";
+  if (secret == "0") return "Родриго";
+  return "Broken data";
+}
