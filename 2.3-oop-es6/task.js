@@ -88,11 +88,10 @@ class Library {
       return null;
    }
 
-// НЕ ПОНИМАЮ, почему жасмин говорит, что я выдаю ему undefined. Дебаггер показывает, что выдаю ему массив с одним элементом - объектом найденной книги.
    giveBookByName(bookName) {
       if (!bookName) return null;
       for (let i = 0; i < this.books.length; i++) {
-         if (this.books[i].name == bookName) return this.books.splice(i, 1); //выдаём первую найденную книгу (строго по тз)
+         if (this.books[i].name == bookName) return this.books.splice(i, 1)[0]; //выдаём первую найденную книгу (строго по тз)
       }
       return null;
    }
