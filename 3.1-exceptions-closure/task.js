@@ -32,7 +32,6 @@ class Triangle {
    }
 
    getArea(){
-      debugger;
       let p = this.getPerimeter() / 2;
       return Number(Math.sqrt(p * (p - this.a)* (p - this.b)* (p - this.c)).toFixed(3));
    }
@@ -43,7 +42,7 @@ function getTriangle(a,b,c) {
    try {
       return new Triangle(a,b,c);
    } catch {
-      throw ({getArea: "Ошибка! Треугольник не существует", getPerimeter: "Ошибка! Треугольник не существует"}); // пока не понимаю, как пробросить объект с методами, которые возвращают такие строки
+      return ({getArea(){return "Ошибка! Треугольник не существует"}, getPerimeter(){return "Ошибка! Треугольник не существует"}});
    }
    
 }
