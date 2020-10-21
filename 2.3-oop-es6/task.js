@@ -12,8 +12,7 @@ class PrintEditionItem {
    }
 
    fix() {
-      this._state *= 1.5;
-      if (this._state > 100) this._state = 100; //пытался вызвать сеттер отсюда - не вышло. информации о том, как это делать с наскока не нашёл. пока оставлю так 
+      this.state *= 1.5;
    }
 
    set state(settingState) {
@@ -130,7 +129,6 @@ class StudentLog {
    }
 
    getTotalAverage() {
-      debugger;
       let sumMarks = 0, keysCount = 0;
       for (let key in this) {
          sumMarks += this.getAverageBySubject(key);
