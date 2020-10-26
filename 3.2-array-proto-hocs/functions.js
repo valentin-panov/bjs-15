@@ -1,10 +1,13 @@
 "use strict";
+
+// TASK 1
+
 console.clear();
 
 const weapons = [new Knife(), new Staff(), new Axe(), new StormStaff(), new LongBow(), new Bow()];
 
 function getNames() {
-   return weapons.map(function getName (arg) {
+   return weapons.map(function getName (arg) { // нужно ли передавать в эту функцию объект? или работать с тем, что есть?
             return arg.name;
          }
       );
@@ -27,3 +30,27 @@ function getCountReliableWeapons (askedDurability) {
       return totalDamage + weapon.attack;
    }, 0);
  }
+
+ // TASK 2
+
+ function sleep(milliseconds) {
+  let e = new Date().getTime() + milliseconds;
+  while (new Date().getTime() <= e) {}
+}
+
+function sum(...args) {
+  sleep(100); // delay 100ms
+  return args.reduce((sum, arg) => {
+    return sum += +arg;
+  }, 0);
+}
+
+function compareArrays(arr1, arr2) {
+   if (!arr1 || !arr2 || (arr1.length != arr2.length)) {return false;} // ускоряем обработку, отлавливаем явные несоответсвия
+
+   if (arr1.every((value, index) => value === arr2[index])) { // сравниваем значения по индексу
+      return true;
+   }
+
+   return false;
+}
