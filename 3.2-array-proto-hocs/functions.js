@@ -47,10 +47,13 @@ function sum(...args) {
 
 function compareArrays(arr1, arr2) {
    if (!arr1 || !arr2 || (arr1.length != arr2.length)) {return false;} // ускоряем обработку, отлавливаем явные несоответсвия
-
    if (arr1.every((value, index) => value === arr2[index])) { // сравниваем значения по индексу
-      return true;
+      return true; // всё сошлось
    }
+   return false; // не сошлось
+}
 
-   return false;
+function memorize(fn, limit) { // fn - функция, которая производит вычисления, limit - ограничение по количеству результатов
+   let memory = { args, result };
+   return fn;
 }
