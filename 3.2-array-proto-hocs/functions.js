@@ -50,19 +50,37 @@ function compareArrays(arr1, arr2) {
   return false; // не сошлось
 }
 
+
 function memorize(fn, limit) { // fn - функция, которая производит вычисления, limit - ограничение по количеству запоминаемых результатов, ...theArgs - аргументы для вызываемой функции
-  const memory = []; // создаём замкнутую память {args, result}
+
+// создаём замкнутую память {args, result}
+  const memory = [];
 
   return function memorizeReturn (...theArgs) {
 //    debugger;
-    if (memory.find(element => element.args) === undefined) { //compareArrays(element.args, theArgs)
+    
+    // ищем в памяти объект с запрашиваемыми переменными
+    let checkArgs = memory.find(item => compareArrays(theArgs, item.args));
+
+    // если таких аргументов в памяти ещё нет, вызываем функцию и заносим результат в память
+    if (checkArgs === undefined) {
+
+      //задержка выполнения
+      sleep(500);
+
+      // пишем результат в память
+      // если массив больше лимита, режем массив. можно сделать другую проверку и не увеличиваться больше лимита, но не до того
       if (memory.unshift({args: theArgs, result: fn(...theArgs)}) > limit) {
         memory.length = limit;
       };
-      sleep(100);
+
+      //возвращаем запрашиваемую функцию
       return fn(...theArgs);
+
     } else {
-      return memory.find(element => element.args);
+
+      //иначе просто возвращаем результат из памяти
+      return checkArgs.result;
     }
   }
 
