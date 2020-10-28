@@ -25,7 +25,6 @@ function getReliableWeaponsNames (askedDurability) {
 function getTotalDamage () {
   return  weapons.reduce((totalDamage, weapon, index) => (totalDamage + weapon.attack), 0);
   // написал и забыл, что это за 0 в конце 8( - начальный индекс?
-  // totalDamage попадает в замыкание reduce?
 }
 
 // TASK 2
@@ -55,6 +54,7 @@ function memorize(fn, limit) { // fn - функция, которая произ
 
 // создаём замкнутую память {args, result}
   const memory = [];
+  memory.length = 0;
 
   return function memorizeReturn (...theArgs) {
 //    debugger;
@@ -68,7 +68,7 @@ function memorize(fn, limit) { // fn - функция, которая произ
       //задержка выполнения
       sleep(500);
 
-      // пишем результат в память
+      // пишем результат в память и
       // если массив больше лимита, режем массив. можно сделать другую проверку и не увеличиваться больше лимита, но не до того
       if (memory.unshift({args: theArgs, result: fn(...theArgs)}) > limit) {
         memory.length = limit;
