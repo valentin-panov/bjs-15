@@ -43,18 +43,19 @@ function sum(...args) {
 }
 
 function compareArrays(arr1, arr2) {
-  if (!arr1 || !arr2 || (arr1.length != arr2.length)) {return false;} // ускоряем обработку, отлавливаем явные несоответсвия и неверный вход
+  if (!arr1 || !arr2 || (arr1.length != arr2.length)) {return false;} // ускоряем обработку, отлавливаем явные несоответствия и неверный вход
   if (arr1.every((value, index) => value === arr2[index])) { // сравниваем значения по индексу
     return true; // всё сошлось
   }
   return false; // не сошлось
 }
 
-function memorize(fn, limit, ...theArgs) { // fn - функция, которая производит вычисления, limit - ограничение по количеству запоминаемых результатов, theArgs - аргументы для вызываемой функции
+function memorize(fn, limit) { // fn - функция, которая производит вычисления, limit - ограничение по количеству запоминаемых результатов, ...theArgs - аргументы для вызываемой функции
   const memory = []; // создаём замкнутую память {args, result}
 
+// дальше ступор 8(
 
-  function fn () {
+  function  () {
     if (memory.find()) {
       return true;
     } else {
