@@ -53,15 +53,17 @@ function compareArrays(arr1, arr2) {
 function memorize(fn, limit) { // fn - функция, которая производит вычисления, limit - ограничение по количеству запоминаемых результатов, ...theArgs - аргументы для вызываемой функции
   const memory = []; // создаём замкнутую память {args, result}
 
-// дальше ступор 8(
-
-  function  () {
-    if (memory.find()) {
-      return true;
+  return function memorizeReturn (...theArgs) {
+//    debugger;
+    if (memory.find(element => element.args) === undefined) { //compareArrays(element.args, theArgs)
+      if (memory.unshift({args: theArgs, result: fn(...theArgs)}) > limit) {
+        memory.length = limit;
+      };
+      sleep(100);
+      return fn(...theArgs);
     } else {
-      return false;
+      return memory.find(element => element.args);
     }
   }
 
-  return fn;
 }
