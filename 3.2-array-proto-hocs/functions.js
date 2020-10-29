@@ -24,7 +24,6 @@ function getReliableWeaponsNames (askedDurability) {
 
 function getTotalDamage () {
   return  weapons.reduce((totalDamage, weapon, index) => (totalDamage + weapon.attack), 0);
-  // написал и забыл, что это за 0 в конце 8( - начальный индекс?
 }
 
 // TASK 2
@@ -56,9 +55,8 @@ function memorize(fn, limit) { // fn - функция, которая произ
   memory.length = 0;
 
   return function memorizeReturn (...theArgs) {
-//    debugger;
     
-    // ищем в памяти объект с запрашиваемыми переменными
+    // ищем в памяти объект с запрашиваемыми аргументами
     let checkArgs = memory.find(item => compareArrays(theArgs, item.args));
 
     // если такие аргументы есть в памяти, возвращаем их
