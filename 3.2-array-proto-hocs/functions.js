@@ -15,11 +15,11 @@ function hasReliableWeapons (askedDurability) {
 }
 
 function getCountReliableWeapons (askedDurability) {
-  return weapons.filter(weapon => ((weapon.durability > askedDurability) === true)).length;
+  return weapons.filter(weapon => (weapon.durability > askedDurability)).length;
 }
 
 function getReliableWeaponsNames (askedDurability) {
-  return (weapons.filter(weapon => ((weapon.durability > askedDurability) === true)).map(weapon => weapon.name));
+  return (weapons.filter(weapon => (weapon.durability > askedDurability)).map(weapon => weapon.name));
 }
 
 function getTotalDamage () {
@@ -42,8 +42,7 @@ function sum(...args) {
 }
 
 function compareArrays(arr1, arr2) {
-  if (!arr1 || !arr2 || (arr1.length != arr2.length)) {return false;} // ускоряем обработку, отлавливаем явные несоответствия и неверный вход
-  if (arr1.every((value, index) => value === arr2[index])) { // сравниваем значения по индексу
+  if (arr1 && arr2 && (arr1.length == arr2.length) && arr1.every((value, index) => value === arr2[index])) { // сравниваем значения по индексу
     return true; // всё сошлось
   }
   return false; // не сошлось
@@ -62,26 +61,22 @@ function memorize(fn, limit) { // fn - функция, которая произ
     // ищем в памяти объект с запрашиваемыми переменными
     let checkArgs = memory.find(item => compareArrays(theArgs, item.args));
 
-    // если таких аргументов в памяти ещё нет, вызываем функцию и заносим результат в память
-    if (checkArgs === undefined) {
-
-      //задержка выполнения 
-      sleep(500); //NB! не понимаю, почему задержка прописана в этой ветке, а жасмин её приписывает другой 8(
-
-      // пишем результат в память и
-      // если массив больше лимита, режем массив. можно сделать другую проверку и не увеличиваться больше лимита, но не до того
-      if (memory.unshift({args: theArgs, result: fn(...theArgs)}) > limit) {
-        memory.length = limit;
-      };
-
-      //возвращаем запрашиваемую функцию
-      return fn(...theArgs);
-
-    } else {
-
-      //иначе просто возвращаем результат из памяти
+    // если такие аргументы есть в памяти, возвращаем их
+    if (checkArgs != undefined) {
       return checkArgs.result;
     }
+
+    //иначе вычисляем результат
+    let resultFn = fn(...theArgs);
+
+    // пишем результат в память и
+    // если массив больше лимита, режем массив. можно сделать другую проверку и не увеличиваться больше лимита, но не до того
+    if (memory.unshift({args: theArgs, result: resultFn}) > limit) {
+      memory.length = limit;
+    };
+
+    //возвращаем запрашиваемый результат
+    return resultFn;
   }
 
 }
