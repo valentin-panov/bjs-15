@@ -60,7 +60,7 @@ function memorize(fn, limit) { // fn - функция, которая произ
     let checkArgs = memory.find(item => compareArrays(theArgs, item.args));
 
     // если такие аргументы есть в памяти, возвращаем их
-    if (checkArgs != undefined) {
+    if (checkArgs) {
       return checkArgs.result;
     }
 
