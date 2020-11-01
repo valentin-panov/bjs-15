@@ -3,35 +3,33 @@
 class AlarmClock {
    constructor (){
       this.alarmCollection = []; // коллекция будильников
-      this.timerId; // айди таймера
+      this.timerId = null; // айди таймера !!! не понимаю. В одном объекте по этому классу будут содержаться несколько будильников, и на всех них только один айди таймера?
    }
 
    addClock (time, fn, id){  
 // добавляет новый звонок в коллекцию существующих
 // метод принимает время (формат hh:mm) коллбэк и айди
-      if (!id) {throw new Error('error text');};  // если id не задан, пробрасываем ошибку
+      if (!id) {throw new Error('Не задан id будильника!');};  // если id не задан, пробрасываем ошибку
 
       if (this.alarmCollection.some(timer => timer.id == id)) {  // если id не уникален, пробрасываем console.error()
-         throw console.error(`Error creating new alarm. Alarm ID \"${id}\" isn't unique.`); // не понимаю, метод работает как требуется, а жасмин красный (
+         throw console.error(`Ошибка создания нового будильника. ID будльника \"${id}\" не уникален`); // не понимаю, метод работает как требуется, а жасмин красный (
       }
 
       if (this.timerId == id) {  // добавил проверку timerId - всё равно жасмин красный
-         throw console.error(`Error creating new alarm, timerId \"${id}\" isn't unique.`);
+         throw console.error(`Ошибка создания нового будильника, timerId \"${id}\" не уникален`);
       }
 
-      this.alarmCollection.push({id: id, time: time, callback: fn}); //Перед завершением метода добавьте в массив звонков объект со свойствами id, time, callback.
+      this.alarmCollection.push({id: id, time: time, callback: fn}); // добавляем в массив звонков объект со свойствами id, time, callback.
    }
 
    removeClock (id) {
-// удаляет определённый звонок
-// Верните логическое значение об успешности/провале удаления объекта звонка из общего массива
+// удаляет определённый звоноки возвращает логическое значение об успешности/провале удаления объекта звонка из общего массива
       return !!(this.alarmCollection.splice(this.alarmCollection.findIndex(alarm => (alarm.id == id)), 1).length);
    }
 
    getCurrentFormattedTime () {
 // возвращает текущее время в строковом формате HH:MM.
       return (`${checkTimeDigits(new Date().getHours())}:${checkTimeDigits(new Date().getMinutes())}`);
-
    }
 
    start () {
@@ -39,11 +37,10 @@ class AlarmClock {
       if (!this.timerId) {
          this.timerId = setInterval ((this.alarmCollection.every(alarm => checkClock(alarm))), 0);
       }
-
    }
 
    stop () {
-// Если у идентификатора текущего таймера есть значение, то вызовите функцию clearInterval для удаления интервала, а так же удалите значение из свойства "идентификатор текущего таймера"
+// Если у идентификатора текущего таймера есть значение, вызываем clearInterval для удаления интервала, а так же удаляем значение из свойства "идентификатор текущего таймера"
       if (this.timerId) {
          clearInterval(this.timerId);
          this.timerId = null;
@@ -51,8 +48,9 @@ class AlarmClock {
    }
 
    printAlarms () {
-//С помощью метода forEach выведите информацию о каждом звонке (id и time).
-      this.alarmCollection.forEach(alarm => console.log(alarm.id, alarm.time));
+// выводим информацию о каждом звонке (id и time).
+      console.log(`Печать всех будильников в количестве ${this.alarmCollection.length}`)
+      this.alarmCollection.forEach(alarm => console.log(`Будильник №${alarm.id} установлен на ${alarm.time}`));
    }
 
    clearAlarms () {
@@ -64,7 +62,7 @@ class AlarmClock {
 }
 
 function checkClock (alarm) { 
-// принимает звонок и проверяет: если текущее время совпадает со временем звонка, вызыаем колбек
+// принимает звонок и проверяет: если текущее время совпадает со временем звонка, вызываем колбек
    if (alarm.time == `${new Date().getHours()}:${new Date().getMinutes()}`) {
       alarm.callback();
    }
