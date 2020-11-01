@@ -19,6 +19,8 @@ class AlarmClock {
          throw console.error(`Ошибка создания нового будильника, timerId \"${id}\" не уникален.`);
       }
 
+      //нужно ли использорвать здесь try-catch?
+
       this.alarmCollection.push({id: id, time: time, callback: fn}); // добавляем в массив звонков объект со свойствами id, time, callback.
    }
 
@@ -77,5 +79,17 @@ function checkTimeDigits(i) {
 }
 
 function testCase () {
-   const alarmClock = new AlarmClock();
+   debugger;
+   let phoneAlarm = new AlarmClock();
+   phoneAlarm.addClock("09:00", () => console.log("Time to WAKE UP!"), 1);
+   phoneAlarm.addClock("09:01", () => {console.log("WAKE UP INDEED!"); phoneAlarm.removeClock(2)}, 2);
+   phoneAlarm.addClock("09:02", () => console.log("WAKE UP or DIE!")); // id isn't defined
+   phoneAlarm.addClock("09:03", () => {
+      console.log("Get up now!");
+      phoneAlarm.clearAlarms();
+      phoneAlarm.printAlarms();
+   }, 3);
+   phoneAlarm.addClock("09:04", () => console.log("Get up, dude!"), 1); //existing id?
+   phoneAlarm.printAlarms();
+   phoneAlarm.start();
 }
