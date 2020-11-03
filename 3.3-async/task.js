@@ -11,15 +11,9 @@ class AlarmClock {
 // метод принимает время (формат hh:mm) коллбэк и айди
       if (!id) {throw new Error('Не задан id будильника.');};  // если id не задан, пробрасываем ошибку
 
-      if (this.alarmCollection.some(timer => timer.id == id)) {  // если id не уникален, пробрасываем console.error()
-         throw console.error(`Ошибка создания нового будильника. ID будльника \"${id}\" не уникален.`); // не понимаю, метод работает как требуется, а жасмин красный (
+      if (this.alarmCollection.some(timer => timer.id == id)) {  // если id не уникален, возвращаем console.error()
+         return console.error(`Ошибка создания нового будильника. ID будльника \"${id}\" не уникален.`);
       }
-
-      if (this.timerId == id) {  // добавил проверку timerId - всё равно жасмин красный
-         throw console.error(`Ошибка создания нового будильника, timerId \"${id}\" не уникален.`);
-      }
-
-      //нужно ли использорвать здесь try-catch?
 
       this.alarmCollection.push({id: id, time: time, callback: fn}); // добавляем в массив звонков объект со свойствами id, time, callback.
    }
@@ -37,7 +31,7 @@ class AlarmClock {
    start () {
 // запускает все звонки
       if (!this.timerId) {
-         this.timerId = setInterval ((this.alarmCollection.every(alarm => checkClock(alarm))), 0);
+         this.timerId = setInterval (() => (this.alarmCollection.forEach(alarm => checkClock(alarm, this.getCurrentFormattedTime()))), 100);
       }
    }
 
@@ -58,14 +52,14 @@ class AlarmClock {
    clearAlarms () {
 // Вызывает метод остановки интервала.
 // Удаляет все звонки
-      this.stop;
+      this.stop();
       this.alarmCollection.length = 0;
    }
 }
 
-function checkClock (alarm) { 
+function checkClock (alarm, time) { 
 // принимает звонок и проверяет: если текущее время совпадает со временем звонка, вызываем колбек
-   if (alarm.time == `${new Date().getHours()}:${new Date().getMinutes()}`) {
+   if (alarm.time == time) {
       alarm.callback();
    }
 }
@@ -79,7 +73,6 @@ function checkTimeDigits(i) {
 }
 
 function testCase () {
-   debugger;
    let phoneAlarm = new AlarmClock();
    phoneAlarm.addClock("09:00", () => console.log("Time to WAKE UP!"), 1);
    phoneAlarm.addClock("09:01", () => {console.log("WAKE UP INDEED!"); phoneAlarm.removeClock(2)}, 2);
@@ -89,7 +82,7 @@ function testCase () {
       phoneAlarm.clearAlarms();
       phoneAlarm.printAlarms();
    }, 3);
-   phoneAlarm.addClock("09:04", () => console.log("Get up, dude!"), 1); //existing id?
+   phoneAlarm.addClock("09:04", () => console.log("Get up, dude!"), 1); //existing id
    phoneAlarm.printAlarms();
    phoneAlarm.start();
 }
